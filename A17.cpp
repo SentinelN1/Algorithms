@@ -1,16 +1,16 @@
 // Гоблины и шаманы
-#include <fstream>
+#include <iostream>
 #include <list>
 
 int main()
 {
-    // std::cin >> n;
-    std::ifstream is;
-    std::ofstream os;
-    is.open("inputA17.txt");
-    os.open("outputA17.txt");
+    // std::ifstream is;
+    // std::ofstream os;
+    // is.open("input.txt");
+    // os.open("output.txt");
     int n;
-    is >> n;
+    std::cin >> n;
+    // is >> n;
     std::list<int> goblins;
     auto it = goblins.end();
     int len = 0;
@@ -18,16 +18,16 @@ int main()
     {
         char mode;
         int index;
-        // std::cin >> mode;
-        is >> mode;
+        std::cin >> mode;
+        // is >> mode;
         switch (mode)
         {
         default:
             break;
 
         case '+':
-            // std::cin >> index;
-            is >> index;
+            std::cin >> index;
+            // is >> index;
             goblins.push_back(index);
             ++len;
             if (len % 2 == 0)
@@ -37,8 +37,8 @@ int main()
             break;
 
         case '*':
-            // std::cin >> index;
-            is >> index;
+            std::cin >> index;
+            // is >> index;
             // it = goblins.begin();
             // std::advance(it, (len + 1) / 2);
             goblins.insert(it, index);
@@ -55,12 +55,12 @@ int main()
             {
                 ++it;
             }
-            // std::cout << *goblins.begin() << "\n";
-            os << *goblins.begin() << "\n";
+            std::cout << *goblins.begin() << "\n";
+            // os << *goblins.begin() << "\n";
             goblins.pop_front();
             break;
         }
     }
-    is.close();
-    os.close();
+    // is.close();
+    // os.close();
 }
