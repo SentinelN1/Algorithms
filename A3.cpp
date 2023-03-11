@@ -1,7 +1,6 @@
 // Коллекционер Диего
 #include <iostream>
 #include <algorithm>
-#include <vector>
 #include <set>
 
 int main()
@@ -17,12 +16,12 @@ int main()
     }
 
     std::cin >> k;
-    for (int i = 0; i < k; i++)
+    for (int i = 0; i < k; ++i)
     {
         int p;
         std::cin >> p;
-        int count = std::count_if(s.begin(), s.end(), [p](int i)
-                                  { return i < p; });
+        auto it = s.upper_bound(p);
+        int count = std::distance(s.begin(), it);
         std::cout << count << "\n";
     }
 
