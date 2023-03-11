@@ -20,7 +20,7 @@ int main()
     {
         int p;
         std::cin >> p;
-        auto it = s.upper_bound(p);
+        auto it = s.lower_bound(p);
         int count = std::distance(s.begin(), it);
         std::cout << count << "\n";
     }
