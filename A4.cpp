@@ -1,3 +1,4 @@
+// Контрольная работа
 #include <iostream>
 
 using namespace std;

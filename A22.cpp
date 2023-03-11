@@ -2,44 +2,55 @@
 #include <vector>
 #include <stack>
 
+struct elem
+{
+    int data;
+    int length = 1;
+    int prev = -1;
+};
+
 int main()
 {
     int n, ans = 0;
     std::cin >> n;
-    std::vector<std::vector<int>> numbers(n + 1);
-    numbers[0] = std::vector<int>(3);
-    numbers[0][1] = 0;  // Length of the longest subsequence
-    numbers[0][2] = -1; // Index of previous element in the longest subsequnce
-    for (int i = 1; i <= n; i++)
+    std::vector<elem> numbers(n);
+    for (int i = 0; i < n; i++)
     {
-        numbers[i] = std::vector<int>(3);
-        std::cin >> numbers[i][0];
         int maxLength = 0;
-        for (int j = 1; j < i; j++)
+        std::cin >> numbers[i].data;
+        for (int j = 0; j < i; j++)
         {
-            if (numbers[j][0] < numbers[i][0] && numbers[j][1] > maxLength)
+            if (numbers[j].data < numbers[i].data && numbers[j].length > maxLength)
             {
-                maxLength = numbers[j][1];
-                numbers[i][2] = j;
+                maxLength = numbers[j].length;
+                numbers[i].prev = j;
             }
         }
-        numbers[i][1] = 1 + maxLength;
+        numbers[i].length = 1 + maxLength;
+        ans = std::max(ans, 1 + maxLength);
     }
 
     std::stack<int> st;
-
-    int index = n;
-    while (index > 0)
+    int index = n - 1;
+    while (index >= 0)
     {
-        st.push(numbers[index][0]);
-        index = numbers[index][2];
+        if (numbers[index].length == ans)
+        {
+            while (ans > 0)
+            {
+                // std::cout << numbers[index].data << " ";
+                st.push(numbers[index].data);
+                index = numbers[index].prev;
+                ans--;
+            }
+            while (!st.empty())
+            {
+                std::cout << st.top() << " ";
+                st.pop();
+            }
+            return 0;
+        }
+        index--;
     }
-
-    while (!st.empty())
-    {
-        std::cout << st.top() << " ";
-        st.pop();
-    }
-
     return 0;
 }

@@ -9,9 +9,9 @@ int main()
     std::vector<int> depos(k);
     for (int i = 0; i < n; i++)
     {
+        bool flag = false;
         int in, out;
         std::cin >> in >> out;
-        bool flag = false;
         for (int j = 0; j < k; j++)
         {
             if (depos[j] < in)
@@ -19,9 +19,11 @@ int main()
                 trains[i] = j + 1;
                 depos[j] = out;
                 flag = true;
+                break;
             }
         }
-        if (!flag) {
+        if (!flag)
+        {
             std::cout << 0 << " " << i + 1;
             return 0;
         }
@@ -31,6 +33,5 @@ int main()
     {
         std::cout << trains[i] << " ";
     }
-
     return 0;
 }

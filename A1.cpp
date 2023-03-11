@@ -1,3 +1,4 @@
+// Гистограмма
 #include <fstream>
 #include <map>
 
