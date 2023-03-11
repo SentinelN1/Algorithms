@@ -1,34 +1,34 @@
 // Коллекционер Диего
 #include <fstream>
 #include <algorithm>
-#include <set>
+#include <vector>
 
 int main()
 {
     int n, k;
-    std::ifstream inf;
-    inf.open("input.txt");
-    inf >> n;
-    std::set<int> s;
+    std::ifstream is;
+    std::ofstream os;
+    is.open("input.txt");
+    os.open("output.txt");
+    is >> n;
+    std::vector<int> vec(n);
     for (int i = 0; i < n; ++i)
     {
-        int tmp;
-        inf >> tmp;
-        s.insert(tmp);
+        is >> vec[i];
     }
+    std::sort(vec.begin(), vec.end());
+    std::unique(vec.begin(), vec.end());
 
-    inf >> k;
-    std::ofstream outf;
-    outf.open("output.txt");
+    is >> k;
     for (int i = 0; i < k; ++i)
     {
         int p;
-        inf >> p;
-        auto it = s.lower_bound(p);
-        int count = std::distance(s.begin(), it);
-        outf << count << "\n";
+        is >> p;
+        auto it = std::lower_bound(vec.begin(), vec.end(), p);
+        int count = std::distance(vec.begin(), it);
+        os << count << "\n";
     }
-    inf.close();
-    outf.close();
+    is.close();
+    os.close();
     return 0;
 }
