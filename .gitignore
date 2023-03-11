@@ -1,4 +1,4 @@
 .vscode
 /CMakeLists.txt
-inputA17.txt
-outputA17.txt
+input.txt
+output.txt

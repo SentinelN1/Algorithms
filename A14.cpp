@@ -17,10 +17,5 @@ int main()
             maxArea = std::max(maxArea, tmp * (i - j + 1));
         }
     }
-    for (auto i : histogram)
-    {
-        std::cout << i << "\n";
-    }
-    
     std::cout << maxArea;
 }
