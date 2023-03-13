@@ -1,21 +1,40 @@
-#include <iostream>
+#include <fstream>
 #include <vector>
+#include <stack>
 
 int main()
 {
     long long int n;
-    std::cin >> n;
-    std::vector<long long int> histogram(n);
+    std::ifstream ifs;
+    std::ofstream ofs;
+    ifs.open("input.txt");
+    ofs.open("output.txt");
+    ifs >> n;
+
+    std::stack<std::pair<size_t, long long int>> stair;
+    stair.push({0, -1});
+
     long long int maxArea = 0;
-    for (int i = 0; i < n; ++i)
+    for (int i = 1; i <= n + 1; ++i)
     {
-        std::cin >> histogram[i];
-        long long int tmp = histogram[i];
-        for (int j = i; j >= 0; --j)
+        long long int cur = 0;
+        if (i <= n)
         {
-            tmp = std::min(tmp, histogram[j]);
-            maxArea = std::max(maxArea, tmp * (i - j + 1));
+            ifs >> cur;
         }
+        int j = i;
+
+        while (cur <= stair.top().second)
+        {
+            auto tmp = stair.top();
+            j = tmp.first;
+            maxArea = std::max(maxArea, (i - j) * tmp.second);
+            stair.pop();
+        }
+        stair.push({j, cur});
     }
-    std::cout << maxArea;
+
+    ofs << maxArea;
+    ifs.close();
+    ofs.close();
 }
