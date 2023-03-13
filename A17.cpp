@@ -1,66 +1,77 @@
 // Гоблины и шаманы
-#include <iostream>
-#include <list>
+#include <fstream>
+#include <queue>
 
 int main()
 {
-    // std::ifstream is;
-    // std::ofstream os;
-    // is.open("input.txt");
-    // os.open("output.txt");
+    std::ifstream is;
+    is.open("input.txt");
+
+    std::ofstream os;
+    os.open("output.txt");
+
     int n;
-    std::cin >> n;
-    // is >> n;
-    std::list<int> goblins;
-    auto it = goblins.end();
-    int len = 0;
+    is >> n;
+
+    std::deque<int> first;
+    int l1 = 0;
+
+    std::deque<int> second;
+    int l2 = 0;
+
     for (int i = 0; i < n; i++)
     {
         char mode;
         int index;
-        std::cin >> mode;
-        // is >> mode;
+        is >> mode;
         switch (mode)
         {
-        default:
-            break;
-
         case '+':
-            std::cin >> index;
-            // is >> index;
-            goblins.push_back(index);
-            ++len;
-            if (len % 2 == 0)
+            is >> index;
+            if (first.empty())
             {
-                ++it;
+                first.push_back(index);
+                ++l1;
+                continue;
+            }
+            second.push_back(index);
+            ++l2;
+            if (l2 > l1)
+            {
+                first.push_back(second.front());
+                second.pop_front();
+                ++l1;
+                --l2;
             }
             break;
 
         case '*':
-            std::cin >> index;
-            // is >> index;
-            // it = goblins.begin();
-            // std::advance(it, (len + 1) / 2);
-            goblins.insert(it, index);
-            ++len;
-            if (len % 2 == 1)
+            is >> index;
+            if (l1 - l2 >= 1)
             {
-                --it;
+                second.push_front(index);
+                ++l2;
+                continue;
             }
+            first.push_back(index);
+            ++l1;
             break;
 
         case '-':
-            --len;
-            if (len % 2 == 0)
+            os << first.front() << "\n";
+            first.pop_front();
+            --l1;
+            if (l1 < l2)
             {
-                ++it;
+                first.push_back(second.front());
+                second.pop_front();
+                ++l1;
+                --l2;
             }
-            std::cout << *goblins.begin() << "\n";
-            // os << *goblins.begin() << "\n";
-            goblins.pop_front();
+
             break;
         }
     }
-    // is.close();
-    // os.close();
+    is.close();
+    os.close();
 }
