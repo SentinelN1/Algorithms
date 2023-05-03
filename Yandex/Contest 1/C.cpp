@@ -24,21 +24,28 @@ int main()
     vector<pair<int, int>> maxRight(N);
 
     map<pair<int, int>, pair<int, int>> stored;
-    for (int from = 0; from < N; ++from) {
-        for (int to = from; to < N; ++to) {
+    for (int from = 0; from < N; ++from)
+    {
+        for (int to = from; to < N; ++to)
+        {
             int left = from;
             int buy = left;
             int sell = left;
             double maxProfit = 1.0;
-            for (int right = left; right <= to; ++right) {
-                if (prices[right] >= prices[left]) {
-                    if (prices[right] / prices[left] > maxProfit) {
+            for (int right = left; right <= to; ++right)
+            {
+                if (prices[right] >= prices[left])
+                {
+                    if (prices[right] / prices[left] > maxProfit)
+                    {
                         buy = left;
                         sell = right;
                         maxProfit = prices[right] / prices[left];
                     }
                     continue;
-                } else {
+                }
+                else
+                {
                     left = right;
                 }
             }
@@ -51,9 +58,11 @@ int main()
     int b2 = 0;
     int s2 = 0;
     double totalprofit = 1;
-    for (int i = 0; i <= N; ++i) {
+    for (int i = 0; i <= N; ++i)
+    {
         auto tmp = prices[stored[{0, i}].first] * prices[stored[{0, i}].second] * prices[stored[{i, N}].first * prices[stored[{i, N}].second]];
-        if(tmp > totalprofit) {
+        if (tmp > totalprofit)
+        {
             totalprofit = tmp;
             b1 = stored[{0, i}].first;
             s1 = stored[{0, i}].second;
@@ -61,16 +70,23 @@ int main()
             s2 = stored[{i, N}].second;
         }
     }
-    if (b1 != s1 && b2 != s2) {
+    if (b1 != s1 && b2 != s2)
+    {
         cout << 2 << "\n";
         cout << b1 << " " << s1 << " " << b2 << " " << s2 << "\n";
-    } else if (b1 != s1 && b2 == s2) {
+    }
+    else if (b1 != s1 && b2 == s2)
+    {
         cout << 1 << "\n";
         cout << b1 << " " << s1 << "\n";
-    } else if (b1 == s1 && b2 != s2) {
+    }
+    else if (b1 == s1 && b2 != s2)
+    {
         cout << 1 << "\n";
         cout << b2 << " " << s2 << "\n";
-    } else {
+    }
+    else
+    {
         cout << 0 << "\n";
     }
     return 0;
