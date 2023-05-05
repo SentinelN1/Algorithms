@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/perfect-squares/
+// leetcode.com/problems/perfect-squares/
 
 #include <iostream>
 #include <vector>
@@ -17,11 +17,7 @@ public:
             int cur = i;
             for (int j = 1; j * j <= i; j++)
             {
-                int tmp = dp[i - j * j];
-                if (dp[i - j * j] < cur)
-                {
-                    cur = tmp;
-                }
+                cur = min(cur, dp[i - j * j]);
             }
             dp[i] = 1 + cur;
         }
@@ -32,10 +28,8 @@ public:
 
 int main()
 {
-    // const int n = 12;
-    // const int n = 13;
-    const int n = 9999;
+    const int n = 10000;
     Solution solution;
-    int ans = solution.numSquares(n);
+    auto ans = solution.numSquares(n);
     cout << ans;
 }
